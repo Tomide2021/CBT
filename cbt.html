@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div id="dispQue" ></div>
+        <button id="prevBTN" onclick="prev()">prev</button>
+        <button onclick="nextQue()">nextQue</button>
+    </main>
+
+    <button onclick="checkEvent(event)">something</button>
+</body>
+</html>
+<script>
+    function checkEvent(ev){
+        console.log(ev);
+        console.log(ev.target.innerHTML);
+        ev.target.innerHTML = "I changed you"
+        ev.target.style.backgroundColor = "red";
+        console.log(ev.target.previousElementSibling);
+        ev.target.previousElementSibling.style.backgroundColor = "greeen"
+    }
+    let queCount = 0
+    let prevBTN = document.getElementById("prevBTN")
+    prevBTN.setAttribute("disabled", true)
+    let cbt = [
+        {
+            ques: "What is your fav color",
+            options: ["Red", "Green","White", "Black"],
+            ans: "White"
+        },
+        {
+            ques: "What is your fav food",
+            options: ["Rice", "Beans","Amala", "Yam"]
+        },
+        {
+            ques: "What is your fav class",
+            options: ["HTML", "CSS","JSS", "Bootstrap"]
+        },
+        {
+            ques: "What is your fav carr",
+            options: ["Benz", "Micra","Toyota", "BMW"]
+        },
+        
+    ]
+    
+    function showQue(){
+        dispQue.innerHTML = `<h1> ${queCount+1}. ${cbt[queCount].ques}</h1>`;
+        cbt[queCount].options.forEach((el)=>{
+            dispQue.innerHTML +=`
+            <input onchange="pickAns(event)" value="${el}" name="dan" type="radio" />
+            <span>${el}</span> <br />
+            `
+        } )
+    }
+    showQue()
+    function nextQue(){
+        prevBTN.removeAttribute("disabled")
+        queCount++;
+        showQue()
+    }
+
+    function prev(){
+        queCount--;
+        if(queCount ==0){
+            prevBTN.setAttribute("disabled", true)
+        }else{}
+        showQue()
+    }
+    function pickAns(ev){
+        console.log(ev.target.value);
+    }
+
+</script>

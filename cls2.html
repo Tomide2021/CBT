@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="hour"></span>:
+    <span id="min"></span>:
+    <span id="sec"></span>:
+
+    <br>
+    <br>
+
+    <button onclick="dispEv(event)">Event</button>
+    <input onchange="pickFile(event)" type="file">
+    <img id="dispImg" width="200" height="200" src="" alt="">
+</body>
+<script>
+    let date = new Date();
+    console.log(date)
+    console.log(date.getHours);
+    console.log(date.getMinutes);
+    console.log(date.getSeconds);
+
+    let hour = document.getElementById("hour")
+    function dis(){
+        hour.innerHTML = date.getHours();
+        min.innerHTML = date.getMinutes();
+        sec.innerHTML = date.getSeconds();
+    }
+
+    dis()
+    function dispEv(ev){
+        console.log(ev.target)
+    }
+    function pickFile(ev){
+        let file = ev.target.files[0];
+        let reader = new FileReader();
+
+        reader.addEventListener("load", (e)=>{
+            let result = e.target.result;
+            console.log(result);
+            dispImg.src = result
+        })
+        if(file){
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</html>
